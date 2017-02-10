@@ -3,19 +3,11 @@ package com.liyaqing.soaptest;
 import java.util.List;
 
 /**
- * Created by liyaqing on 2017/2/9.
+ * Created by liyaqing on 2017/2/10.
  */
 
-public class MyObject {
+public class Appointments {
 
-    /**
-     * statusFlag : success
-     * statusMessage : SUCCESS
-     * appointments : [{"fz":"","ghdzt":"2","yyfs":"2","yydm":"150621001","remark":"","czyhbh":"","zkdm":"","hzzcyhbh":"","zjdz":"","zkmc":"","ghdh":"16092109474885181","zjxgyhbh":"","id":"157","yyrq":"2016-09-22","scyydsj":"2016-09-21 09:47:48","qxyydsj":"2016-09-21 15:04:58","sfxz":"0","sfly":"-1","ghfy":"0","jzkh":"152723194911108123","pbbh":"15062100124150001201609010","ysgh":"0001","ksmc":"骨科","ksdm":"2415","scbz":"0","hyid":"15062100124150001201609010","yymc":"达旗人民医院","hzxm":"闫二女","yysjd":"0","tzqzt":"1","jzlx":"1","plzt":"0","lxdh":"13552634282","qxyyyhbh":"","zjxgrq":"","zjlx":"01","zjhm":"152723194911108123","sfpf":"0","yysdbz":"","ysxm":"传奇一哥"},{"fz":"","ghdzt":"0","yyfs":"2","yydm":"150621001","remark":"","czyhbh":"","zkdm":"","hzzcyhbh":"","zjdz":"","zkmc":"","ghdh":"16092710260844279","zjxgyhbh":"","id":"169","yyrq":"2016-10-02","scyydsj":"2016-09-27 10:26:08","qxyydsj":"","sfxz":"0","sfly":"-1","ghfy":"0","jzkh":"152723194911108123","pbbh":"15062100124150003201610021","ysgh":"0003","ksmc":"骨科","ksdm":"2415","scbz":"0","hyid":"15062100124150003201610021","yymc":"达旗人民医院","hzxm":"闫二女","yysjd":"1","tzqzt":"1","jzlx":"1","plzt":"0","lxdh":"13552634282","qxyyyhbh":"","zjxgrq":"","zjlx":"01","zjhm":"152723194911108123","sfpf":"0","yysdbz":"","ysxm":"传奇三哥"},{"fz":"","ghdzt":"0","yyfs":"2","yydm":"150621001","remark":"","czyhbh":"","zkdm":"","hzzcyhbh":"","zjdz":"","zkmc":"","ghdh":"16092710292681296","zjxgyhbh":"","id":"170","yyrq":"2016-10-02","scyydsj":"2016-09-27 10:29:26","qxyydsj":"","sfxz":"0","sfly":"-1","ghfy":"0","jzkh":"152723194911108123","pbbh":"15062100124150004201610021","ysgh":"0004","ksmc":"骨科","ksdm":"2415","scbz":"0","hyid":"15062100124150004201610021","yymc":"达旗人民医院","hzxm":"闫二女","yysjd":"0","tzqzt":"1","jzlx":"1","plzt":"0","lxdh":"13552634282","qxyyyhbh":"","zjxgrq":"","zjlx":"01","zjhm":"152723194911108123","sfpf":"0","yysdbz":"","ysxm":"传奇四哥"}]
-     */
-
-    private String statusFlag;
-    private String statusMessage;
     /**
      * fz :
      * ghdzt : 2
@@ -60,22 +52,6 @@ public class MyObject {
      */
 
     private List<AppointmentsBean> appointments;
-
-    public String getStatusFlag() {
-        return statusFlag;
-    }
-
-    public void setStatusFlag(String statusFlag) {
-        this.statusFlag = statusFlag;
-    }
-
-    public String getStatusMessage() {
-        return statusMessage;
-    }
-
-    public void setStatusMessage(String statusMessage) {
-        this.statusMessage = statusMessage;
-    }
 
     public List<AppointmentsBean> getAppointments() {
         return appointments;

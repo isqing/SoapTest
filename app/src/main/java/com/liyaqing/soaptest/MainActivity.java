@@ -1,32 +1,47 @@
 package com.liyaqing.soaptest;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 
-import java.util.HashMap;
+import com.google.gson.Gson;
+import com.google.gson.internal.$Gson$Types;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Vector;
 
-import okhttp3.Call;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String TAG="main";
+    @BindView(R.id.yymc)
+    TextView yymc;
+    private String TAG = "main";
     private CompositeSubscription mSubscriptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Vector v= new Vector<Param>();
-        v.add(new Param("userzjhm","152723194911108123"));
-        v.add(new Param("yydsyqk","1"));
+        ButterKnife.bind(this);
+
+        Vector v = new Vector<Param>();
+        v.add(new Param("userzjhm", "152723194911108123"));
+        v.add(new Param("yydsyqk", "1"));
         Subscription subscription = RxSoap.request(v, "getAppointmentInfo")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -39,35 +54,42 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: "+e );
+                        e.printStackTrace();
+                        Log.e(TAG, "onError: " + e);
                     }
 
                     @Override
                     public void onNext(String s) {
-                        Log.i(TAG, "onNext: "+s);
+                        Log.i(TAG, "onNext: " + s);
+                        try {
+
+                            JSONObject response=new JSONObject(s);
+                            String flag=response.getString("statusFlag");
+                            if (flag.equalsIgnoreCase("success")) {
+                                String dataJson=response.getJSONArray("appointments").toString();
+                                Log.i(TAG, "dataJson: "+dataJson);
+                                List<Appointments.AppointmentsBean> appointments=new Gson().fromJson(dataJson,  new TypeToken<List<Appointments.AppointmentsBean>>() {
+                                }.getType());
+                                yymc.setText(appointments.get(0).getYymc());
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+
                     }
                 });
         mSubscriptions = new CompositeSubscription();
         mSubscriptions.add(subscription);
-//        Callback callback = new Callback() {
-//            @Override
-//            void succssful(String result) {
-//
-//            }
-//
-//            @Override
-//            void error(Call call, Exception e) {
-//
-//            }
-//        };
-//
-//        SoapTask soapTask = new SoapTask(callback);
-//        HashMap<Integer, Object> map = new HashMap<>();
-//
-//
-//
-//
-//        soapTask.execute(map);
+    }
+    static Type getSuperclassTypeParameter(Class<?> subclass) {
+        Type superclass = subclass.getGenericSuperclass();
+        if (superclass instanceof Class) {
+            throw new RuntimeException("Missing type parameter.");
+        }
+        ParameterizedType parameterized = (ParameterizedType) superclass;
+        return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
+
     }
 
     @Override

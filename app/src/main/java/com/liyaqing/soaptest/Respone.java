@@ -9,7 +9,7 @@ public class Respone<T> {
     private String statusFlag;
     private String statusMessage;
 
-    private T data;
+    private  T  data;
 
     public Respone() {
     }
